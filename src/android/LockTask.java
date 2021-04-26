@@ -45,6 +45,9 @@ public class LockTask extends CordovaPlugin {
         } else if (action.equals("isLocked")) {
             callbackContext.success(String.valueOf(isLockTaskEnabled));
             return true;
+        } else if (action.equals("removeDeviceOwner")) {
+            removeDeviceOwner();
+            return true;
         }
         return false;
     }
@@ -54,6 +57,20 @@ public class LockTask extends CordovaPlugin {
         super.initialize(cordova, webView);
         setLocked(true);
         enterFullscreen();
+    }
+    
+    private void removeDeviceOwner() {
+        Activity activity = cordova.getActivity();
+        ComponentName adminComponentName = DeviceAdminReceiver.getComponentName(activity);
+        
+        DevicePolicyManager mDpm = (DevicePolicyManager) GadUtilsApplicationContext.getAppContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        
+        if (mDpm.isDeviceOwnerApp(context.getPackageName())) {
+
+            if (mDpm.getActiveAdmins().contains(devAdminReceiver)) {
+                mDpm.clearDeviceOwnerApp(context.getPackageName());
+            }
+        }
     }
 
     private void enterFullscreen() {
