@@ -152,8 +152,10 @@ public class LockTask extends CordovaPlugin {
         if (active){
             devicePolicyManager.setSystemUpdatePolicy(adminComponentName,
                     SystemUpdatePolicy.createWindowedInstallPolicy(60, 120));
+            activity.startLockTask();
         } else {
             devicePolicyManager.setSystemUpdatePolicy(adminComponentName, null);
+            activity.stopLockTask();
         }
 
         devicePolicyManager.setLockTaskPackages(adminComponentName,
