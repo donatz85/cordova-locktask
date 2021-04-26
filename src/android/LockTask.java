@@ -63,12 +63,12 @@ public class LockTask extends CordovaPlugin {
         Activity activity = cordova.getActivity();
         ComponentName adminComponentName = DeviceAdminReceiver.getComponentName(activity);
         
-        DevicePolicyManager mDpm = (DevicePolicyManager) GadUtilsApplicationContext.getAppContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        DevicePolicyManager mDpm = (DevicePolicyManager) activity.getSystemService(Context.DEVICE_POLICY_SERVICE);
         
-        if (mDpm.isDeviceOwnerApp(context.getPackageName())) {
+        if (mDpm.isDeviceOwnerApp(activity.getPackageName())) {
 
             if (mDpm.getActiveAdmins().contains(devAdminReceiver)) {
-                mDpm.clearDeviceOwnerApp(context.getPackageName());
+                mDpm.clearDeviceOwnerApp(activity.getPackageName());
             }
         }
     }
