@@ -8,3 +8,6 @@ exports.isLocked = function(success, error) {
     exec(success, error, 'LockTask', 'isLocked', null);
 };
 
+exports.removeDeviceOwner = function(success, error) {
+    exec(success, error, 'LockTask', 'removeDeviceOwner', null);
+};
